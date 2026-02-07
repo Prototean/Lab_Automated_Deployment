@@ -2,7 +2,7 @@ name: deploy on push production branch
 on: 
   push:
    branches:
-      -prod
+      - prod
     
 jobs:
   build-and-deploy:
@@ -13,15 +13,16 @@ jobs:
       - name: set the ubuntu user as the owner of the /var/www/html directory for unbuntu 42+
         uses: appleboy/ssh-action@v1.2.0
         with:
-          host: ${{ secrets.HOST }}
+          host: ${{ secrets.PROD_HOST }}
           username: ${{ secrets.SSH_USER_NAME }}
           key: ${{ secrets.SSH_KEY}}
           script: |
             sudo chown -R ubuntu /var/www/html
+
       - name: set the root user back as the owner of the /var/www/html directory for unbuntu 24+
         uses: appleboy/ssh-action@v1.2.0
         with:
-          host: ${{ secrets.HOST }}
+          host: ${{ secrets.PROD_HOST }}
           username: ${{ secrets.SSH_USER_NAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
